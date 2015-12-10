@@ -1,0 +1,30 @@
+{
+  "name": "leaflet-control-legend",
+  "main": "leaflet-control-legend.js",
+  "homepage": "https://github.com/jblarsen/leaflet-control-legend",
+  "authors": [
+    "Jesper Baasch-Larsen <jla@fcoo.dk>"
+  ],
+  "description": "Legend for leaflet layers",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "fontawesome": "~4.4.0"
+  },
+  "_release": "929b6d6450",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "929b6d645067caf622689483f25d0ea2bcad7764"
+  },
+  "_source": "https://github.com/jblarsen/leaflet-control-legend.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/jblarsen/leaflet-control-legend.git"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Leaflet.Terminator",
+  "homepage": "https://github.com/jblarsen/Leaflet.Terminator",
+  "_release": "9f42a1a9aa",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "9f42a1a9aa79301c3a46f064ee6dc42ec421b24f"
+  },
+  "_source": "https://github.com/jblarsen/Leaflet.Terminator.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/jblarsen/Leaflet.Terminator.git"
+}

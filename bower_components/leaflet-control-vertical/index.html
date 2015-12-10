@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet control for selecting vertical level</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-control-vertical.css" />
+</head>
+<body>
+    <div id="map" style="width: 600px; height: 400px"></div>
+    <div id="info"></div>
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="leaflet-control-vertical.js" charset="UTF-8"></script>
+    <script>
+        var map = L.map('map').setView([56.5, 12.0], 5);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</a>'
+        }).addTo(map);
+        var myLevels = [ 0, 1, 2, 3, 5];
+        map.on('levelchange', function (evt){
+            //var index = this.selectedIndex;
+            //var value = $(this).val();
+            //$('#info').html('Selected index ' + index + ' with value ' + value);
+        });
+        map.addControl(new L.Control.Vertical({title: 'Vertical Selector',
+                                               units: 'm',
+                                               levels: myLevels,
+                                               initialLevelIndex: 2,
+                                               onChange: onChange
+        }));
+    </script>
+</body>
+</html>

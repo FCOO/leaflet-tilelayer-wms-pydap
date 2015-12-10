@@ -1,0 +1,29 @@
+{
+  "name": "leaflet-tilelayer-counting",
+  "main": "leaflet-tilelayer-counting.js",
+  "homepage": "https://github.com/jblarsen/leaflet-tilelayer-counting",
+  "authors": [
+    "Jesper Baasch-Larsen <jla@fcoo.dk>"
+  ],
+  "description": "Layer which keeps track of how many times it is added to/removed from the map",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Leaflet": "https://github.com/jblarsen/Leaflet.git#master"
+  },
+  "_release": "8c5734ad26",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8c5734ad26650005010f18d45f4a10fdd8cec3a2"
+  },
+  "_source": "https://github.com/jblarsen/leaflet-tilelayer-counting.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/jblarsen/leaflet-tilelayer-counting.git"
+}

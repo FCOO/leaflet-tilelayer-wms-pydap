@@ -1,0 +1,25 @@
+{
+  "name": "leaflet-control-vertical",
+  "main": "leaflet-control-vertical.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/FCOO/leaflet-control-vertical",
+  "authors": [
+    "Jesper Baasch-Larsen <jla@fcoo.dk>"
+  ],
+  "description": "Leaflet control for changing vertical level",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet": "https://github.com/jblarsen/Leaflet.git#master",
+    "jquery": "~2.1.4"
+  }
+}

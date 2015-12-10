@@ -1,0 +1,22 @@
+.leaflet-control-vertical {
+    background-color: white;
+    color: #333;
+    padding: 2px;
+    border: 1px solid darkgray;
+    text-align: left;
+    display: block;
+}
+
+div.leaflet-control-vertical-title {
+	font-size: larger;
+	font-weight: bold;
+    display: none;
+	position: relative;
+}
+
+@media screen and (orientation: landscape) and (min-width: 641px) and (min-height: 481px), screen and (orientation: portrait) and (min-width: 481px) and (min-height: 641px) {
+    div.leaflet-control-vertical-title {
+        display: block;
+    }
+}
+

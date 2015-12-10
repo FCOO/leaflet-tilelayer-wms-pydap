@@ -7,14 +7,8 @@ is hosted here:
 
 https://github.com/jblarsen/pydap.responses.wms
 
-## Demos
-http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/examples/example_pressure.html
-
-http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/examples/example_seastate.html
-
-http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/examples/example_simple.html
-
-http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/examples/example_vectors.html
+## Demo
+http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/
 
 ## Requirements
 Leaflet, jQuery, jQuery UI and moment.

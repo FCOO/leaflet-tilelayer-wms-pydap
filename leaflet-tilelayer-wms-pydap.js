@@ -50,6 +50,7 @@
             this._legendControl = null;
             this._legendId = null;
             this._dataset = dataset;
+            this._gotMetadata = false;
             this.levels = undefined;
             this.timesteps = null;
             L.TileLayer.WMS.prototype.initialize.call(this, this._basetileurl, wmsParams);
@@ -325,6 +326,7 @@
                     }
                     this.timesteps = timesteps;
                 }
+                this._gotMetadata = true;
             } catch (err) {
                 //console.log(err);
                 var n = noty({text: err.message, type: "error"});
@@ -349,11 +351,14 @@
             // Subscribe to datetime updates
             map.on('datetimechange', this.setParamsListener, this);
 
-            // Add legend when required info available
-            var that = this;
-            if (that.legendParams.show) {
-                var addLegend = function () {
-                    if (that._last_modified !== undefined) {
+            if (that.options.foreground !== null) {
+                that.options.foreground.addTo(map);
+            }
+
+            var gotMetadata = function () {
+                if (that._gotMetadata) {
+                    // Add legend when required info available
+                    if (that.legendParams.show) {
                         that._legendControl = that._getLegendControl();
                         if (that._legendControl !== null) {
                             var legendId = that._legendId;
@@ -380,47 +385,31 @@
                                                 legendOptions);
                             }
                         }
-                    } else {
-                        setTimeout(addLegend, 10);
                     }
-                };
-                addLegend();
-            }
 
-            var getLevels = function () {
-                if (that._last_modified !== undefined) {
                     // Subscribe to levelchange events for layers with level attribute
                     if (that.levels !== undefined) {
                         map.on('levelchange', function(evt) {
                             that.setParams({level: evt.index}, false, false);
                         });
                     }
-                } else {
-                    setTimeout(getLevels, 10);
-                }
-            };
-            getLevels();
 
-            if (this.options.foreground !== null) {
-                this.options.foreground.addTo(map);
-            }
-            // Check if time information is available and set current time
-            // to first time step if this is the case. Add layer to map
-            // after that
-            var getTimesteps = function () {
-                if (that.timesteps !== null) {
+                    // Check if time information is available and set current time
+                    // to first time step if this is the case. Add layer to map
+                    // after that
                     if (that.options.time == undefined) {
                         that.options.time = that.timesteps[0];
                         var strtime = moment(that.options.time);
                         strtime = strtime.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
-                        that.setParams({time: strtime});
+                        // FIXME: Fails when set before onAdd
+                        //that.setParams({time: strtime});
                     }
                     L.TileLayer.WMS.prototype.onAdd.call(that, map);
                 } else {
-                    setTimeout(getTimesteps, 10);
+                    setTimeout(gotMetadata, 10);
                 }
-            };
-            getTimesteps();
+            }
+            gotMetadata();
         },
 
         onRemove: function(map) {

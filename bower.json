@@ -22,8 +22,9 @@
     "leaflet-control-legend": "https://github.com/jblarsen/leaflet-control-legend.git",
     "noty": "~2.3.4",
     "leaflet-tilelayer-counting": "https://github.com/jblarsen/leaflet-tilelayer-counting.git",
-    "Leaflet.Terminator": "https://github.com/jblarsen/Leaflet.Terminator.git",
-    "Leaflet": "https://github.com/jblarsen/Leaflet.git#master",
-    "leaflet-control-vertical": "https://github.com/jblarsen/leaflet-control-vertical.git"
+    "leaflet": "https://github.com/jblarsen/Leaflet.git#master",
+    "leaflet-control-vertical": "https://github.com/jblarsen/leaflet-control-vertical.git",
+    "jquery": "~2.1.4",
+    "moment": "~2.10.6"
   }
 }

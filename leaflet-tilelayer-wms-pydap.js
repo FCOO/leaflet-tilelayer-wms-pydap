@@ -397,12 +397,10 @@
                     // Check if time information is available and set current time
                     // to first time step if this is the case. Add layer to map
                     // after that
-                    if (that.options.time == undefined) {
-                        that.options.time = that.timesteps[0];
-                        var strtime = moment(that.options.time);
+                    if (that.wmsParams.time == undefined) {
+                        var strtime = moment(that.timesteps[0]);
                         strtime = strtime.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
-                        // FIXME: Fails when set before onAdd
-                        //that.setParams({time: strtime});
+                        that.wmsParams.time = strtime;
                     }
                     L.TileLayer.WMS.prototype.onAdd.call(that, map);
                 } else {

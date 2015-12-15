@@ -11,7 +11,7 @@ https://github.com/jblarsen/pydap.responses.wms
 http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/
 
 ## Requirements
-Leaflet, jQuery, jQuery UI and moment.
+Leaflet, jQuery and moment.
 
 http://leafletjs.com/
 

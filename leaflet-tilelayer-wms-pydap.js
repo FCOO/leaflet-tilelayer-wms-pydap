@@ -116,7 +116,9 @@
         },
 
         setParamsListener: function (evt) {
-            this.setParams({time: evt.datetime}, false, true);
+            if (this.wmsParams.time !== 'current') {
+                this.setParams({time: evt.datetime}, false, true);
+            }
         },
 
         setParams: function (params, noRedraw, animate) {
@@ -255,16 +257,18 @@
             // In that case we just request the image even
             // if it is out of time range
             if (stime !== undefined) {
-                var sptime = stime.split('T');
-                if (sptime.length == 2) {
-                    var date = sptime[0].split('-').map(parseDecimalInt);
-                    var time = sptime[1].split(':').map(parseDecimalInt);
-                    var timestep = new Date(Date.UTC(date[0], date[1]-1, date[2],
-                                             time[0], time[1], time[2]));
-                    var timesteps = this.timesteps;
-                    if (timesteps !== null && (timestep < timesteps[0] ||
-                        timestep > timesteps[timesteps.length-1])) {
-                        load_tile = false;
+                if (stime !== 'current') {
+                    var sptime = stime.split('T');
+                    if (sptime.length == 2) {
+                        var date = sptime[0].split('-').map(parseDecimalInt);
+                        var time = sptime[1].split(':').map(parseDecimalInt);
+                        var timestep = new Date(Date.UTC(date[0], date[1]-1, date[2],
+                                                 time[0], time[1], time[2]));
+                        var timesteps = this.timesteps;
+                        if (timesteps !== null && (timestep < timesteps[0] ||
+                            timestep > timesteps[timesteps.length-1])) {
+                            load_tile = false;
+                        }
                     }
                 }
             }

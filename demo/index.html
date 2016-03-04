@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="da" style="font-size: 100%">
+<head>
+	<title>fcoo.dk - leaflet-tilelayer-wms-pydap - Demo</title>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv='x-dns-prefetch-control' content='on'>
+
+	<meta name='copyright' content='FCOO'>
+	<meta name='owner' content='FCOO'>
+
+  <link  href="bower_components.css" rel="stylesheet">	
+</head>
+
+<body>
+	<div id="map" style="width: 800px; height: 600px"></div>
+
+	<script src="bower_components.js"></script>
+	<script src="../src/leaflet-tilelayer-wms-pydap.js"></script>
+	<script src="../src/wms-ajax-proxy.js"></script>
+
+	<script>
+				var map = L.map('map').setView([56.5, 12.0], 5);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</a>'
+        }).addTo(map);
+
+        var dataset = 'DMI/HIRLAM/MAPS_DMI_S03_v005C.nc';
+        var options = {
+            tileSize: 512,
+            attribution: 'Wind forecasts from <a href="http://dmi.dk" alt="Danish Meteorological Institute">DMI</a>',
+        }
+        var optionsWindspeed = {
+            layers: 'windspeed',
+            cmap: 'Wind_ms_YRP_11colors',
+            opacity: 0.6,
+            zIndex: 100
+        };
+        optionsWindspeed = $.extend(optionsWindspeed, options);
+        var legendOptionsWindspeed = {
+            attribution: '<a href="dmi.dk">DMI</a>'
+        };
+        var optionsWinddirection = {
+            layers: 'UGRD:VGRD',
+            opacity: 1.0,
+            zIndex: 200,
+            styles: 'vector_method=black_arrowbarbs,vector_spacing=80,vector_offset=20'
+        }
+        optionsWinddirection = $.extend(optionsWinddirection, options);
+
+        var windspeed = new L.TileLayer.WMS.Pydap(dataset, optionsWindspeed, 
+                    legendOptionsWindspeed);
+        var winddirection = new L.TileLayer.WMS.Pydap(dataset,
+                    optionsWinddirection);
+        map.addLayer(windspeed);
+        map.addLayer(winddirection);
+	</script>
+</body>
+</html>

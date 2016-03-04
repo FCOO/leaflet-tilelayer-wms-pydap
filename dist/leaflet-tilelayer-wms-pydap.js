@@ -14,8 +14,9 @@
      * A JavaScript library for using Web Map Service layers from pydap
      * without hassle.
      */
+
     L.TileLayer.WMS.Pydap = L.TileLayer.WMS.extend({
-        //baseUrl: location.protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
+        //baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
         baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
         //baseUrl: "http://webmap-dev01:8080/{dataset}.wms",
         //baseUrl: "http://webmap-prod03:8080/{dataset}.wms",

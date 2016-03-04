@@ -89,7 +89,11 @@
                         merDict[key].context = [];
                         var layers = [];
                         // TODO: Check data contents identical
+<<<<<<< HEAD:wms-ajax-proxy.js
+                        for (var j = 0; i < reqsLength; i++) {
+=======
                         for (i = 0; i < reqsLength; i++) {
+>>>>>>> master:src/wms-ajax-proxy.js
                             merDict[key].context.push({
                                 context: reqs[i].context,
                                 success: reqs[i].success,

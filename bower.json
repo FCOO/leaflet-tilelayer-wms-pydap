@@ -1,15 +1,28 @@
 {
   "name": "leaflet-tilelayer-wms-pydap",
-  "main": "leaflet-tilelayer-wms-pydap.js",
-  "version": "1.0.0",
-  "homepage": "https://github.com/jblarsen/leaflet-tilelayer-wms-pydap",
+  "version": "1.0.1",
+  "homepage": "https://github.com/FCOO/leaflet-tilelayer-wms-pydap",
   "authors": [
-    "Jesper Baasch-Larsen <jla@fcoo.dk>"
+    "Jesper Larsen <jla@fcoo.dk>"
   ],
   "description": "WMS tile layers from the pydap server",
-  "moduleType": [
-    "es6"
+  "main": [
+    "dist/leaflet-tilelayer-wms-pydap.min.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/leaflet-tilelayer-wms-pydap.git"
+  },
+  "dependencies": {
+    "leaflet-control-legend": "https://github.com/fcoo/leaflet-control-legend.git",
+    "noty": "latest",
+    "leaflet-tilelayer-counting": "https://github.com/fcoo/leaflet-tilelayer-counting.git",
+    "leaflet": "latest",
+    "leaflet-control-vertical": "https://github.com/fcoo/leaflet-control-vertical.git",
+    "jquery": "latest",
+    "moment": "latest"
+  },
+  "devDependencies": {},
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -18,13 +31,7 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "leaflet-control-legend": "https://github.com/jblarsen/leaflet-control-legend.git",
-    "noty": "~2.3.4",
-    "leaflet-tilelayer-counting": "https://github.com/jblarsen/leaflet-tilelayer-counting.git",
-    "leaflet": "https://github.com/jblarsen/Leaflet.git#master-dist",
-    "leaflet-control-vertical": "https://github.com/jblarsen/leaflet-control-vertical.git",
-    "jquery": "~2.1.4",
-    "moment": "~2.10.6"
-  }
+  "moduleType": [
+    "es6"
+  ]
 }

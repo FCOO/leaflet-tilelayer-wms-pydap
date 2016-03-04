@@ -1,8 +1,14 @@
-(function (){
-    "use strict";
-    /*jslint browser: true*/
-    /*global $, console*/
+/****************************************************************************
+	wms-ajax-proxy.js, 
 
+	(c) 2015, FCOO
+
+	https://github.com/FCOO/leaflet-tilelayer-wms-pydap
+	https://github.com/FCOO
+
+****************************************************************************/
+;(function ($, window, document, undefined) {
+	"use strict";
     /**
      * A JavaScript library for proxying metadata requests to WMS server.
      * The proxy merges requests that can be performed as single requests
@@ -48,10 +54,10 @@
         },
         mergeRequests: function () {
             // Merges requests for same dataset in requests list
-            var reqDict = {};
+            var i, reqDict = {};
             var arrayLength = this.requests.length;
             // Collect requests to same url
-            for (var i = 0; i < arrayLength; i++) {
+            for (i = 0; i < arrayLength; i++) {
                 var req = this.requests[i];
                 if (! reqDict.hasOwnProperty(req.url)) {
                     reqDict[req.url] = [req];
@@ -83,7 +89,11 @@
                         merDict[key].context = [];
                         var layers = [];
                         // TODO: Check data contents identical
+<<<<<<< HEAD:wms-ajax-proxy.js
                         for (var j = 0; i < reqsLength; i++) {
+=======
+                        for (i = 0; i < reqsLength; i++) {
+>>>>>>> master:src/wms-ajax-proxy.js
                             merDict[key].context.push({
                                 context: reqs[i].context,
                                 success: reqs[i].success,
@@ -113,4 +123,5 @@
         }
     };
     window.WmsAjaxProxy = WmsAjaxProxy;
-})();
+
+}(jQuery, this, document));

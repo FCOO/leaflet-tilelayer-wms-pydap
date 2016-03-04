@@ -1,29 +1,28 @@
 # leaflet-tilelayer-wms-pydap
+>
 
-Extension of the L.TileLayer.WMS to include a legend and easy support for 
-WMS time requests for weather forecasts served using the pydap WMS server.
-Currently it supports the extended version of the pydap WMS response which
-is hosted here:
+
+## Description
+Extension of the L.TileLayer.WMS to include a legend and easy support for WMS time requests for weather forecasts served using the pydap WMS server.
+
+<<<<<<< HEAD
+## Demo
+http://fcoo.github.io/leaflet-tilelayer-wms-pydap/
+=======
+Currently it supports the extended version of the pydap WMS response which is hosted here:
+>>>>>>> master
 
 https://github.com/jblarsen/pydap.responses.wms
 
+
+## Installation
+### bower
+`bower install https://github.com/FCOO/leaflet-tilelayer-wms-pydap.git --save`
+
 ## Demo
-http://fcoo.github.io/leaflet-tilelayer-wms-pydap/
-
-## Requirements
-Leaflet, jQuery and moment.
-
-http://leafletjs.com/
-
-http://jquery.com/
-
-http://momentjs.com/
+http://FCOO.github.io/leaflet-tilelayer-wms-pydap/demo/ 
 
 ## Usage
-Install the dependencies and include the Javascript
-file in this repository in your application:
-
-Example usage:
 
         var dataset = 'DMI/HIRLAM/MAPS_DMI_S03_v005C.nc';
         var options = {
@@ -54,5 +53,34 @@ Example usage:
                     optionsWinddirection);
         map.addLayer(windspeed);
         map.addLayer(winddirection);
+
+
+
+
+### options
+
+
+### Methods
+
+
+## Copyright and License
+This plugin is licensed under the [MIT license](https://github.com/FCOO/leaflet-tilelayer-wms-pydap/LICENSE).
+
+Copyright (c) 2015 [FCOO](https://github.com/FCOO)
+
+## Contact information
+
+Jesper Larsen jla@fcoo.dk
+
+
+## Credits and acknowledgements
+
+
+## Known bugs
+
+## Troubleshooting
+
+## Changelog
+
 
 

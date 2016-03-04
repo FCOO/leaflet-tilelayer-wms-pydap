@@ -1,26 +1,23 @@
-(function (){
-    "use strict";
-    /*jslint browser: true*/
-    /*global $, L, console*/
+/****************************************************************************
+	leaflet-tilelayer-wms-pydap.js, 
+
+	(c) 2015, FCOO
+
+	https://github.com/FCOO/leaflet-tilelayer-wms-pydap
+	https://github.com/FCOO
+
+****************************************************************************/
+;(function ($, L, window, document, undefined) {
+	"use strict";
 
     /**
      * A JavaScript library for using Web Map Service layers from pydap
      * without hassle.
      */
 
-    /* Error metadata request failures */
-    function MetadataError(message) {
-        this.name = 'MetadataError';
-        this.message = message || 'Default Message';
-        this.stack = (new Error()).stack;
-    }
-    MetadataError.prototype = Object.create(Error.prototype);
-    MetadataError.prototype.constructor = MetadataError;
-
-    /* Class representing a WMS tilelayer from Pydap */
     L.TileLayer.WMS.Pydap = L.TileLayer.WMS.extend({
-        //baseUrl: location.protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
-        baseUrl: location.protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
+        //baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
+        baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
         //baseUrl: "http://webmap-dev01:8080/{dataset}.wms",
         //baseUrl: "http://webmap-prod03:8080/{dataset}.wms",
         defaultWmsParams: {
@@ -52,11 +49,7 @@
             primadonna: true,
             foreground: null,
             crs: L.CRS.EPSG3857,
-            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Danish Defence METOC Forecast Service">FCOO</a>',
-            onMetadataError: function(err) {
-                noty({text: err.message, type: "error"});
-                throw err;
-            }
+            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Danish Defence METOC Forecast Service">FCOO</a>'
         },
 
         initialize: function (dataset, wmsParams, legendParams, options) {
@@ -108,7 +101,7 @@
                       REQUEST: 'GetMetadata',
                       VERSION: this.wmsParams.version,
                       ITEMS: 'epoch,last_modified,long_name,units,bounds,time,levels',
-                      LAYERS: this.wmsParams.layers.split(':')[0].split(',')[0],
+                      LAYERS: this.wmsParams.layers.split(':')[0].split(',')[0]
                     },
               context: this,
               error: this._error_metadata,
@@ -170,7 +163,7 @@
         },
 
         // TODO: Not yet functional
-        prefetch: function (params, callback) {
+        prefetch: function (/*params, callback*/) {
             /* Fetches a layer which is identical to this layer except
              * what options the input params override. And the zIndex
              * is set to a very small value. 
@@ -226,10 +219,10 @@
             };
             var timestep = _startTime(this.wmsParams.time, this.timesteps);
 
-            var noRedraw = true;
-            var running = true;
-            var now = timesteps[timestep];
-            var that = this;
+            //NOT USED: var noRedraw = true;
+            //NOT USED: var running = true;
+            //NOT USED: var now = timesteps[timestep];
+            //NOT USED: var that = this;
             var callback = function () {
                 timestep += 1;
                 if (timestep > timesteps.length-1) {
@@ -237,11 +230,11 @@
                 }
                 var strtime = moment(timesteps[timestep]);
                 strtime = strtime.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
-                var params = {'time': strtime};
-                if (! time.isSame(moment(timesteps[i]))) {
-                    console.log(params);
-                    that.prefetch(params);
-                }
+                //NOT USED: var params = {'time': strtime};
+                //'time' and 'i' NOT DEFINED: if (! time.isSame(moment(timesteps[i]))) {
+                //    console.log(params);
+                //    that.prefetch(params);
+                //}
             };
             var strtime = moment(timesteps[timestep]);
             strtime = strtime.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
@@ -294,18 +287,19 @@
                 //url = L.Util.emptyImageUrl;
                 // Seems like some browsers do not like the emptyImageUrl so
                 // we use our own empty image
-                url = location.protocol + '//tiles.fcoo.dk/tiles/empty_512.png';
+                url = window.location.protocol + '//tiles.fcoo.dk/tiles/empty_512.png';
                 this._removeAllTiles();
             }
             return url;
         },
 
-        _error_metadata: function(jqXHR, textStatus, err) {
+        _error_metadata: function(jqXHR/*, textStatus, err*/) {
             var msg = 'Failed getting web map metadata from ' + jqXHR.url;
-            this.options.onMetadataError(new MetadataError(msg));
+            window.noty({text: msg, type: "error"});
+            throw new Error(msg);
         },
 
-        _got_metadata: function(json, textStatus, jqXHR) {
+        _got_metadata: function(json/*, textStatus, jqXHR*/) {
             try {
                 if ('epoch' in json) {
                     this._epoch = moment(json.epoch);
@@ -346,7 +340,9 @@
                 }
                 this._gotMetadata = true;
             } catch (err) {
-                this.options.onMetadataError(new MetadataError(err.message));
+                //console.log(err);
+                window.noty({text: err.message, type: "error"});
+                throw err;
             }
         },
 
@@ -377,7 +373,7 @@
                     if (that.legendParams.show) {
                         that._legendControl = that._getLegendControl();
                         if (that._legendControl !== null) {
-                            var legendId = that._legendId;
+                            //NOT USED: var legendId = that._legendId;
                             if (that.legendParams.show) {
                                 that.legendParams.imageUrl = that._fcootileurl + that.getLegendUrl();
                             }
@@ -459,4 +455,131 @@
         }
     });
 
-})();
+
+}(jQuery, L, this, document));
+
+
+
+;/****************************************************************************
+	wms-ajax-proxy.js, 
+
+	(c) 2015, FCOO
+
+	https://github.com/FCOO/leaflet-tilelayer-wms-pydap
+	https://github.com/FCOO
+
+****************************************************************************/
+;(function ($, window, document, undefined) {
+	"use strict";
+    /**
+     * A JavaScript library for proxying metadata requests to WMS server.
+     * The proxy merges requests that can be performed as single requests
+     * to the pydap WMS service.
+     *
+     * It can be used by the pydap WMS tilelayer to merge metadata
+     * requests for better performance (especially on high latency
+     * connections).
+     *
+     * Usage:
+     *
+     * var wmsProxy = new MwsAjaxProxy()
+     *
+     * var ajaxOptions1 = {
+     *     url: 'whatever',
+     *     async: true
+     * }
+     * var ajaxOptions2 = {
+     *     url: 'whatever',
+     *     data: {
+     *         mydata: 'example'
+     *     }
+     *     async: true
+     * }
+     * wmsProxy.deferredAjax(ajaxOptions1);
+     * wmsProxy.deferredAjax(ajaxOptions2);
+     * wmsProxy.doAjax();
+     */
+    var WmsAjaxProxy = {
+        requests: [],
+        deferredAjax: function (request) {
+            // Put request into queue. Has the same signature as JQuery.ajax
+            this.requests.push(request);
+        },
+        doAjax: function () {
+            // Perform request
+            var mergedRequests = this.mergeRequests();
+            for (var key in mergedRequests) {
+                if (mergedRequests.hasOwnProperty(key)) {
+                    $.ajax(mergedRequests[key]);
+                }
+            }
+        },
+        mergeRequests: function () {
+            // Merges requests for same dataset in requests list
+            var i, reqDict = {};
+            var arrayLength = this.requests.length;
+            // Collect requests to same url
+            for (i = 0; i < arrayLength; i++) {
+                var req = this.requests[i];
+                if (! reqDict.hasOwnProperty(req.url)) {
+                    reqDict[req.url] = [req];
+                } else {
+                    reqDict[req.url].push(req);
+                }
+            }
+
+            // Create merged requests
+            var merDict = {};
+            for (var key in reqDict) {
+                if (reqDict.hasOwnProperty(key)) {
+                    merDict[key] = {};
+                    if (reqDict[key].length == 1) {
+                        // When we only have one request we simply perform that request
+                        merDict[key] = reqDict[key][0];
+                    } else {
+                        // When we have multiple requests we merge them, make a single
+                        // request and call all appropriate callbacks with the proper
+                        // context
+                        var reqs = reqDict[key];
+                        var reqsLength = reqs.length;
+                        merDict[key].url = reqs[0].url;
+                        merDict[key].beforeSend = reqs[0].beforeSend;
+                        merDict[key].cache = reqs[0].cache;
+                        merDict[key].dataType = reqs[0].dataType;
+                        merDict[key].async = reqs[0].async;
+                        merDict[key].data = reqs[0].data;
+                        merDict[key].context = [];
+                        var layers = [];
+                        // TODO: Check data contents identical
+                        for (i = 0; i < reqsLength; i++) {
+                            merDict[key].context.push({
+                                context: reqs[i].context,
+                                success: reqs[i].success,
+                                error: reqs[i].error
+                            });
+                            if (layers.indexOf(reqs[i].data.LAYERS) == -1) {
+                                layers.push(reqs[i].data.LAYERS);
+                            }
+                        }
+                        merDict[key].data.LAYERS = layers.join();
+                        merDict[key].success = function (json, textStatus, jqXHR) {
+                            var thisLength = this.length;
+                            for (var i = 0; i < thisLength; i++) {
+                                this[i].success.call(this[i].context, json, textStatus, jqXHR);
+                            }
+                        };
+                        merDict[key].error = function (jqXHR, textStatus, err) {
+                            var thisLength = this.length;
+                            for (var i = 0; i < thisLength; i++) {
+                                this[i].error.call(this[i].context, jqXHR, textStatus, err);
+                            }
+                        };
+                    }
+                }
+            }
+            return merDict;
+        }
+    };
+    window.WmsAjaxProxy = WmsAjaxProxy;
+
+}(jQuery, this, document));

@@ -8,7 +8,7 @@ is hosted here:
 https://github.com/jblarsen/pydap.responses.wms
 
 ## Demo
-http://jblarsen.github.io/leaflet-tilelayer-wms-pydap/
+http://fcoo.github.io/leaflet-tilelayer-wms-pydap/
 
 ## Requirements
 Leaflet, jQuery and moment.

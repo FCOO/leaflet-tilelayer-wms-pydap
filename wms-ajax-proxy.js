@@ -83,7 +83,7 @@
                         merDict[key].context = [];
                         var layers = [];
                         // TODO: Check data contents identical
-                        for (var i = 0; i < reqsLength; i++) {
+                        for (var j = 0; i < reqsLength; i++) {
                             merDict[key].context.push({
                                 context: reqs[i].context,
                                 success: reqs[i].success,
@@ -99,13 +99,13 @@
                             for (var i = 0; i < thisLength; i++) {
                                 this[i].success.call(this[i].context, json, textStatus, jqXHR);
                             }
-                        }
+                        };
                         merDict[key].error = function (jqXHR, textStatus, err) {
                             var thisLength = this.length;
                             for (var i = 0; i < thisLength; i++) {
                                 this[i].error.call(this[i].context, jqXHR, textStatus, err);
                             }
-                        }
+                        };
                     }
                 }
             }

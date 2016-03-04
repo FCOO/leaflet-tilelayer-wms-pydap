@@ -413,7 +413,7 @@
                     // Check if time information is available and set current time
                     // to first time step if this is the case. Add layer to map
                     // after that
-                    if (that.wmsParams.time == undefined) {
+                    if (that.wmsParams.time === undefined) {
                         var strtime = moment(that.timesteps[0]);
                         strtime = strtime.format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
                         that.wmsParams.time = strtime;
@@ -422,7 +422,7 @@
                 } else {
                     setTimeout(gotMetadata, 10);
                 }
-            }
+            };
             gotMetadata();
         },
 

@@ -1,7 +1,6 @@
 # leaflet-tilelayer-wms-pydap
 >
 
-
 ## Description
 Extension of the L.TileLayer.WMS to include a legend and easy support for WMS time requests for weather forecasts served using the pydap WMS server.
 
@@ -44,33 +43,8 @@ http://fcoo.github.io/leaflet-tilelayer-wms-pydap/demo/
         map.addLayer(windspeed);
         map.addLayer(winddirection);
 
-
-
-
-### options
-
-
-### Methods
-
-
 ## Copyright and License
 This plugin is licensed under the [MIT license](https://github.com/FCOO/leaflet-tilelayer-wms-pydap/LICENSE).
 
 Copyright (c) 2015 [FCOO](https://github.com/FCOO)
-
-## Contact information
-
-Jesper Larsen jla@fcoo.dk
-
-
-## Credits and acknowledgements
-
-
-## Known bugs
-
-## Troubleshooting
-
-## Changelog
-
-
 

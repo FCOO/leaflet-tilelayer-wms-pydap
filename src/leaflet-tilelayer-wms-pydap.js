@@ -15,6 +15,19 @@
      * without hassle.
      */
 
+<<<<<<< HEAD:leaflet-tilelayer-wms-pydap.js
+    /* Error metadata request failures */
+    function MetadataError(message) {
+        this.name = 'MetadataError';
+        this.message = message || 'Default Message';
+        this.stack = (new Error()).stack;
+    }
+    MetadataError.prototype = Object.create(Error.prototype);
+    MetadataError.prototype.constructor = MetadataError;
+
+    /* Class representing a WMS tilelayer from Pydap */
+=======
+>>>>>>> master:src/leaflet-tilelayer-wms-pydap.js
     L.TileLayer.WMS.Pydap = L.TileLayer.WMS.extend({
         //baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
         baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
@@ -49,7 +62,11 @@
             primadonna: true,
             foreground: null,
             crs: L.CRS.EPSG3857,
-            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Danish Defence METOC Forecast Service">FCOO</a>'
+            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Danish Defence METOC Forecast Service">FCOO</a>',
+            onMetadataError: function(err) {
+                noty({text: err.message, type: "error"});
+                throw err;
+            }
         },
 
         initialize: function (dataset, wmsParams, legendParams, options) {
@@ -295,8 +312,12 @@
 
         _error_metadata: function(jqXHR/*, textStatus, err*/) {
             var msg = 'Failed getting web map metadata from ' + jqXHR.url;
+<<<<<<< HEAD:leaflet-tilelayer-wms-pydap.js
+            this.options.onMetadataError(new MetadataError(msg));
+=======
             window.noty({text: msg, type: "error"});
             throw new Error(msg);
+>>>>>>> master:src/leaflet-tilelayer-wms-pydap.js
         },
 
         _got_metadata: function(json/*, textStatus, jqXHR*/) {
@@ -340,9 +361,13 @@
                 }
                 this._gotMetadata = true;
             } catch (err) {
+<<<<<<< HEAD:leaflet-tilelayer-wms-pydap.js
+                this.options.onMetadataError(new MetadataError(err.message));
+=======
                 //console.log(err);
                 window.noty({text: err.message, type: "error"});
                 throw err;
+>>>>>>> master:src/leaflet-tilelayer-wms-pydap.js
             }
         },
 

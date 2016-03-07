@@ -1,6 +1,6 @@
 {
   "name": "leaflet-tilelayer-wms-pydap",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "homepage": "https://github.com/FCOO/leaflet-tilelayer-wms-pydap",
   "author": "Jesper Larsen jla@fcoo.dk",
   "description": "package.json is only use for building the package. see bower.json for more info",

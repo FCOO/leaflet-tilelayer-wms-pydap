@@ -5,15 +5,12 @@
 ## Description
 Extension of the L.TileLayer.WMS to include a legend and easy support for WMS time requests for weather forecasts served using the pydap WMS server.
 
-## Demo
-http://fcoo.github.io/leaflet-tilelayer-wms-pydap/
-
 ## Installation
 ### bower
 `bower install https://github.com/FCOO/leaflet-tilelayer-wms-pydap.git --save`
 
 ## Demo
-http://FCOO.github.io/leaflet-tilelayer-wms-pydap/demo/ 
+http://fcoo.github.io/leaflet-tilelayer-wms-pydap/demo/ 
 
 ## Usage
 

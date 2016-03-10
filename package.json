@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "grunt-bower-concat": "~1.0.0",
+    "grunt-cli": "^0.1.13",
     "grunt-continue": "~0.1.0",
     "grunt-contrib-clean": "~1.0.0",
     "grunt-contrib-concat": "~0.5.1",
@@ -34,7 +35,7 @@
     "jshintrc": true
   },
   "scripts": {
-        "test": "grunt test"
+    "test": "grunt test"
   },
   "license": "MIT"
 }

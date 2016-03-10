@@ -1,5 +1,5 @@
 # leaflet-tilelayer-wms-pydap
->
+[![Build Status](https://travis-ci.org/FCOO/leaflet-tilelayer-wms-pydap.svg?branch=master)](https://travis-ci.org/FCOO/leaflet-tilelayer-wms-pydap)
 
 ## Description
 Extension of the L.TileLayer.WMS to include a legend and easy support for WMS time requests for weather forecasts served using the pydap WMS server.

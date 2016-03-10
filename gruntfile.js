@@ -504,6 +504,7 @@ module.exports = function(grunt) {
 	if (haveStyleSheet)
 	  checkTasks.push('sass:check');
 	grunt.registerTask('check', checkTasks);
+	grunt.registerTask('test', checkTasks);
 
 
 	//*********************************************************

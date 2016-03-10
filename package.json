@@ -33,5 +33,8 @@
   "jshintConfig": {
     "jshintrc": true
   },
+  "scripts": {
+        "test": "grunt test"
+  },
   "license": "MIT"
 }

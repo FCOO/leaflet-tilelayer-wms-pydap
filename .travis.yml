@@ -1,0 +1,10 @@
+sudo: false
+language: node_js
+node_js:
+  - "5"
+before_install:
+  - npm install -g npm
+before_script:
+  - npm uninstall grunt # https://github.com/npm/npm/issues/3958
+matrix:
+  fast_finish: true

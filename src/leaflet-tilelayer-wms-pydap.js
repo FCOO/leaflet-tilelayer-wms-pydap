@@ -179,6 +179,7 @@
         // Private method to load tiles in the grid's active zoom level according to map bounds
         // We override it to exit if wmsParams.time is not defined and we add coords.t information.
         _update: function (center) {
+            var i, j;
             var map = this._map;
             if (!map) { return; }
             // Do not add tiles if time has not been set
@@ -202,8 +203,8 @@
             if (Math.abs(zoom - this._tileZoom) > 1) { this._setView(center, zoom); return; }
 
             // create a queue of coordinates to load tiles from
-            for (var j = tileRange.min.y; j <= tileRange.max.y; j++) {
-                for (var i = tileRange.min.x; i <= tileRange.max.x; i++) {
+            for (j = tileRange.min.y; j <= tileRange.max.y; j++) {
+                for (i = tileRange.min.x; i <= tileRange.max.x; i++) {
                     var coords = new L.Point(i, j);
                     coords.z = this._tileZoom;
                     coords.t = this.wmsParams.time;
@@ -234,7 +235,7 @@
                 // create DOM fragment to append tiles in one batch
                 var fragment = document.createDocumentFragment();
 
-                for (var i = 0; i < queue.length; i++) {
+                for (i = 0; i < queue.length; i++) {
                     this._addTile(queue[i], fragment);
                 }
 

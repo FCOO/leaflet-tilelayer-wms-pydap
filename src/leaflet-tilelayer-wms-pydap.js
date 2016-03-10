@@ -234,7 +234,7 @@
                 // create DOM fragment to append tiles in one batch
                 var fragment = document.createDocumentFragment();
 
-                for (i = 0; i < queue.length; i++) {
+                for (var i = 0; i < queue.length; i++) {
                     this._addTile(queue[i], fragment);
                 }
 

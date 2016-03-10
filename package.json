@@ -9,6 +9,7 @@
     "url": "git://github.com/FCOO/leaflet-tilelayer-wms-pydap.git"
   },
   "devDependencies": {
+    "grunt": "0.4.2",
     "grunt-bower-concat": "~1.0.0",
     "grunt-cli": "^0.1.13",
     "grunt-continue": "~0.1.0",

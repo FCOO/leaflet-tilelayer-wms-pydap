@@ -173,7 +173,93 @@
         // Converts tile coordinates to key for the tile cache. We override
         // this to include a time stamp as well.
         _tileCoordsToKey: function (coords) {
-            return coords.x + ':' + coords.y + ':' + coords.z + ':' + this.wmsParams.time;
+            return coords.x + ':' + coords.y + ':' + coords.z + ':' + coords.t;
+        },
+
+        // Private method to load tiles in the grid's active zoom level according to map bounds
+        // We override it to exit if wmsParams.time is not defined and we add coords.t information.
+        _update: function (center) {
+            var i, j;
+            var map = this._map;
+            if (!map) { return; }
+            // Do not add tiles if time has not been set
+            if (!this.wmsParams.time) { return; }
+            var zoom = map.getZoom();
+
+            if (center === undefined) { center = map.getCenter(); }
+            if (this._tileZoom === undefined) { return; }   // if out of minzoom/maxzoom
+
+            var pixelBounds = this._getTiledPixelBounds(center),
+                tileRange = this._pxBoundsToTileRange(pixelBounds),
+                tileCenter = tileRange.getCenter(),
+                queue = [];
+
+            for (var key in this._tiles) {
+                this._tiles[key].current = false;
+            }
+
+            // _update just loads more tiles. If the tile zoom level differs too much
+            // from the map's, let _setView reset levels and prune old tiles.
+            if (Math.abs(zoom - this._tileZoom) > 1) { this._setView(center, zoom); return; }
+
+            // create a queue of coordinates to load tiles from
+            for (j = tileRange.min.y; j <= tileRange.max.y; j++) {
+                for (i = tileRange.min.x; i <= tileRange.max.x; i++) {
+                    var coords = new L.Point(i, j);
+                    coords.z = this._tileZoom;
+                    coords.t = this.wmsParams.time;
+
+                    if (!this._isValidTile(coords)) { continue; }
+
+                    var tile = this._tiles[this._tileCoordsToKey(coords)];
+                    if (tile) {
+                        tile.current = true;
+                    } else {
+                        queue.push(coords);
+                    }
+                }
+            }
+
+            // sort tile queue to load tiles in order of their distance to center
+            queue.sort(function (a, b) {
+                return a.distanceTo(tileCenter) - b.distanceTo(tileCenter);
+            });
+
+            if (queue.length !== 0) {
+                // if its the first batch of tiles to load
+                if (!this._loading) {
+                    this._loading = true;
+                    this.fire('loading');
+                }
+
+                // create DOM fragment to append tiles in one batch
+                var fragment = document.createDocumentFragment();
+
+                for (i = 0; i < queue.length; i++) {
+                    this._addTile(queue[i], fragment);
+                }
+
+                this._level.el.appendChild(fragment);
+            }
+        },
+
+        // Make sure that we abort loading tiles 
+        _abortLoading: function () {
+            var i, tile;
+            for (i in this._tiles) {
+                if (this._tiles[i].coords.z !== this._tileZoom ||
+                    this._tiles[i].coords.t !== this.wmsParams.time) {
+                    tile = this._tiles[i].el;
+
+                    tile.onload = L.Util.falseFn;
+                    tile.onerror = L.Util.falseFn;
+
+                    if (!tile.complete) {
+                        tile.src = L.Util.emptyImageUrl;
+                        L.DomUtil.remove(tile);
+                    }
+                }
+            }
         },
 
         // TODO: Not yet functional

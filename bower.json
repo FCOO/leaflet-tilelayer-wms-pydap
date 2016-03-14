@@ -1,6 +1,6 @@
 {
   "name": "leaflet-tilelayer-wms-pydap",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "homepage": "https://github.com/FCOO/leaflet-tilelayer-wms-pydap",
   "authors": [
     "Jesper Larsen <jla@fcoo.dk>"
@@ -17,7 +17,7 @@
     "leaflet-control-legend": "https://github.com/fcoo/leaflet-control-legend.git",
     "noty": "latest",
     "leaflet-tilelayer-counting": "https://github.com/fcoo/leaflet-tilelayer-counting.git",
-    "leaflet": "https://github.com/jblarsen/Leaflet.git#master-dist",
+    "leaflet": "latest",
     "leaflet-control-vertical": "https://github.com/fcoo/leaflet-control-vertical.git",
     "jquery": "latest",
     "moment": "latest"
@@ -33,8 +33,5 @@
   ],
   "moduleType": [
     "es6"
-  ],
-  "resolutions": {
-    "leaflet": "0.7.7"
-  }
+  ]
 }

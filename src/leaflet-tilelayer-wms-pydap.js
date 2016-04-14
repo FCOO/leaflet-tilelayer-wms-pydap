@@ -54,7 +54,7 @@
             tileSize: 512,
             opacity: 1.00,
             updateInterval: 50,
-            subdomains: ['api01', 'api02', 'api03', 'api04'],
+            subdomains: ['wms01', 'wms02', 'wms03', 'wms04'],
             maxZoom: 18,
             primadonna: true,
             foreground: null,

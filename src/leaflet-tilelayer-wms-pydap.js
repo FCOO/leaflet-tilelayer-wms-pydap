@@ -59,7 +59,7 @@
             primadonna: true,
             foreground: null,
             crs: L.CRS.EPSG3857,
-            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Danish Defence METOC Forecast Service">FCOO</a>',
+            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Defence Centre for Operational Oceanography">FCOO</a>',
             onMetadataError: function(err) {
                 noty({text: err.message, type: "error"});
                 throw err;

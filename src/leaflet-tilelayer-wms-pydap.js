@@ -10,6 +10,8 @@
 ;(function ($, L, window, document, undefined) {
 	"use strict";
 
+	var protocol = window.location.protocol == 'https:' ? 'https:' : 'http:';
+
     /**
      * A JavaScript library for using Web Map Service layers from pydap
      * without hassle.
@@ -26,8 +28,8 @@
 
     /* Class representing a WMS tilelayer from Pydap */
     L.TileLayer.WMS.Pydap = L.TileLayer.WMS.extend({
-        //baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
-        baseUrl: window.location.protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
+        //baseUrl: protocol + "//{s}.fcoo.dk/webmap-staging/{dataset}.wms",
+        baseUrl: protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
         //baseUrl: "http://webmap-dev01:8080/{dataset}.wms",
         //baseUrl: "http://webmap-prod03:8080/{dataset}.wms",
         defaultWmsParams: {
@@ -61,7 +63,7 @@
             crs: L.CRS.EPSG3857,
             attribution: 'Weather from <a href="http://fcoo.dk/" alt="Defence Centre for Operational Oceanography">FCOO</a>',
             onMetadataError: function(err) {
-                noty({text: err.message, type: "error"});
+                window.noty({text: err.message, type: "error"});
                 throw err;
             }
         },
@@ -405,7 +407,7 @@
                 //url = L.Util.emptyImageUrl;
                 // Seems like some browsers do not like the emptyImageUrl so
                 // we use our own empty image
-                url = window.location.protocol + '//tiles.fcoo.dk/tiles/empty_512.png';
+                url = protocol + '//tiles.fcoo.dk/tiles/empty_512.png';
                 this._removeAllTiles();
             }
             return url;

@@ -30,7 +30,6 @@
 	"globals": {
 		"jQuery"		: true,
 		"console"		: false,
-		"noty"		: true,
 		"module"		: true,
 		"document"	: false,
 		"L"					: true,

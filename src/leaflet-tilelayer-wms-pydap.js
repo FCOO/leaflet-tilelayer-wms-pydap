@@ -67,6 +67,7 @@
         },
 
         initialize: function (dataset, wmsParams, legendParams, options) {
+            var that = this;
             this._basetileurl = this.baseUrl.replace('{dataset}', dataset);
             this._map = null;
             this._legendControl = null;
@@ -108,18 +109,35 @@
                            {s: this.options.subdomains[subindex]});
 
             // Request layer information from server
-            var ajaxOptions = {
+            this.ajaxOptions = {
               url: this._fcootileurl,
+              timeout: 30000,
+              tryCount: 0,
+              retryLimit: 2,
               data: {
                       SERVICE: 'WMS',
                       REQUEST: 'GetMetadata',
                       VERSION: this.wmsParams.version,
                       ITEMS: 'epoch,last_modified,long_name,units,bounds,time,levels',
                       LAYERS: this.wmsParams.layers.split(':')[0].split(',')[0]
-                    },
+              },
               context: this,
-              error: this._error_metadata,
-              success: this._got_metadata,
+              error: function(jqXHR, textStatus, err) {
+                 if (! that.options.hasOwnProperty('ajaxProxy')) {
+                     // Try events that time out again if not handled by ajaxProxy
+                     if (textStatus == 'timeout') {
+                         this.ajaxOptions.tryCount++;
+                         if (this.ajaxOptions.tryCount <= this.ajaxOptions.retryLimit) {
+                             $.ajax(this.ajaxOptions);
+                             return;
+                         }
+                     }
+                 }
+                 this._error_metadata(jqXHR, textStatus, err);
+              },
+              success: function(json) {
+                  this._got_metadata(json);
+              },
               beforeSend: function(jqXHR, settings) {
                   jqXHR.url = settings.url;
               },
@@ -131,9 +149,9 @@
             // ajax call to the provided function. Otherwise we use a
             // jQuery ajax call
             if (this.options.hasOwnProperty('ajaxProxy')) {
-                this.options.ajaxProxy.deferredAjax(ajaxOptions);
+                this.options.ajaxProxy.deferredAjax(this.ajaxOptions);
             } else {
-                $.ajax(ajaxOptions);
+                $.ajax(this.ajaxOptions);
             }
         },
 
@@ -393,8 +411,9 @@
             return url;
         },
 
-        _error_metadata: function(jqXHR/*, textStatus, err*/) {
-            var msg = 'Failed getting web map metadata from ' + jqXHR.url;
+        _error_metadata: function(jqXHR, textStatus/*, err*/) {
+            var msg = 'Failed getting web map metadata from ' + jqXHR.url +
+                      ' due to ' + textStatus;
             this.options.onMetadataError(new MetadataError(msg));
         },
 
@@ -406,7 +425,12 @@
                 if ('last_modified' in json) {
                     this._last_modified = moment(json.last_modified);
                 }
-                var variable = json[this.wmsParams.layers.split(':')[0].split(',')[0]];
+                var varname = this.wmsParams.layers.split(':')[0].split(',')[0];
+                if (! (varname in json)) {
+                    throw new MetadataError('Cannot find ' + varname + ' in ' + json);
+                }
+                var variable = json[varname];
+                
                 this._long_name = variable.long_name;
                 this._units = variable.units;
                 if ('levels' in variable) {

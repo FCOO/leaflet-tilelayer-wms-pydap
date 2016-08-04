@@ -71,48 +71,67 @@
             for (var key in reqDict) {
                 if (reqDict.hasOwnProperty(key)) {
                     merDict[key] = {};
-                    if (reqDict[key].length == 1) {
-                        // When we only have one request we simply perform that request
-                        merDict[key] = reqDict[key][0];
-                    } else {
-                        // When we have multiple requests we merge them, make a single
-                        // request and call all appropriate callbacks with the proper
-                        // context
-                        var reqs = reqDict[key];
-                        var reqsLength = reqs.length;
-                        merDict[key].url = reqs[0].url;
-                        merDict[key].beforeSend = reqs[0].beforeSend;
-                        merDict[key].cache = reqs[0].cache;
-                        merDict[key].dataType = reqs[0].dataType;
-                        merDict[key].async = reqs[0].async;
-                        merDict[key].data = reqs[0].data;
-                        merDict[key].context = [];
-                        var layers = [];
-                        // TODO: Check data contents identical
-                        for (i = 0; i < reqsLength; i++) {
-                            merDict[key].context.push({
-                                context: reqs[i].context,
-                                success: reqs[i].success,
-                                error: reqs[i].error
-                            });
-                            if (layers.indexOf(reqs[i].data.LAYERS) == -1) {
-                                layers.push(reqs[i].data.LAYERS);
+                    // When we have multiple requests we merge them, make a single
+                    // request and call all appropriate callbacks with the proper
+                    // context
+                    var reqs = reqDict[key];
+                    var reqsLength = reqs.length;
+                    merDict[key].tryCount = reqs[0].tryCount;
+                    merDict[key].retryLimit = reqs[0].retryLimit;
+                    merDict[key].url = reqs[0].url;
+                    merDict[key].timeout = reqs[0].timeout;
+                    merDict[key].beforeSend = reqs[0].beforeSend;
+                    merDict[key].cache = reqs[0].cache;
+                    merDict[key].dataType = reqs[0].dataType;
+                    merDict[key].async = reqs[0].async;
+                    merDict[key].data = reqs[0].data;
+                    merDict[key].context = [];
+                    var layers = [];
+                    // TODO: Check data contents identical
+                    for (i = 0; i < reqsLength; i++) {
+                        merDict[key].context.push({
+                            key: key,
+                            context: reqs[i].context,
+                            success: reqs[i].success,
+                            error: reqs[i].error
+                        });
+                        if (layers.indexOf(reqs[i].data.LAYERS) == -1) {
+                            layers.push(reqs[i].data.LAYERS);
+                        }
+                    }
+                    merDict[key].data.LAYERS = layers.join();
+                    // FIXME: These functions should be moved out of the loop.
+                    // Until then we tell jshint to be quiet
+                    /* jshint loopfunc:true */
+                    merDict[key].success = function (json, textStatus, jqXHR) {
+                        var thisLength = this.length;
+                        for (var i = 0; i < thisLength; i++) {
+                            this[i].success.call(this[i].context, json, textStatus, jqXHR);
+                        }
+                    };
+                    merDict[key].error = function (jqXHR, textStatus, err) {
+                        var thisLength = this.length;
+                        if (textStatus == 'timeout') {
+                            // Retry request if any of the child requests specify tryCount and retryLimit
+                            for (var i = 0; i < thisLength; i++) {
+                                if (this[i].context.ajaxOptions.tryCount !== undefined && this[i].context.ajaxOptions.retryLimit !== undefined) {
+                                    this[i].context.ajaxOptions.tryCount++;
+                                    if (this[i].context.ajaxOptions.tryCount <= this[i].context.ajaxOptions.retryLimit) {
+                                        // Try again
+                                        //console.log('RETRYING', this[i].key, this[i].context.ajaxOptions.tryCount);
+                                        $.ajax(merDict[this[i].key]);
+                                        return;
+                                    }
+                                }
+                                break;
                             }
                         }
-                        merDict[key].data.LAYERS = layers.join();
-                        merDict[key].success = function (json, textStatus, jqXHR) {
-                            var thisLength = this.length;
-                            for (var i = 0; i < thisLength; i++) {
-                                this[i].success.call(this[i].context, json, textStatus, jqXHR);
-                            }
-                        };
-                        merDict[key].error = function (jqXHR, textStatus, err) {
-                            var thisLength = this.length;
-                            for (var i = 0; i < thisLength; i++) {
-                                this[i].error.call(this[i].context, jqXHR, textStatus, err);
-                            }
-                        };
-                    }
+                        // Otherwise call individual error handlers
+                        for (var j = 0; j < thisLength; j++) {
+                            this[j].error.call(this[j].context, jqXHR, textStatus, err);
+                        }
+                    };
+                    /* jshint loopfunc:false */
                 }
             }
             return merDict;

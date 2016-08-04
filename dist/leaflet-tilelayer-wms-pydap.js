@@ -54,12 +54,12 @@
             tileSize: 512,
             opacity: 1.00,
             updateInterval: 50,
-            subdomains: ['api01', 'api02', 'api03', 'api04'],
+            subdomains: ['wms01', 'wms02', 'wms03', 'wms04'],
             maxZoom: 18,
             primadonna: true,
             foreground: null,
             crs: L.CRS.EPSG3857,
-            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Danish Defence METOC Forecast Service">FCOO</a>',
+            attribution: 'Weather from <a href="http://fcoo.dk/" alt="Defence Centre for Operational Oceanography">FCOO</a>',
             onMetadataError: function(err) {
                 noty({text: err.message, type: "error"});
                 throw err;
@@ -67,6 +67,7 @@
         },
 
         initialize: function (dataset, wmsParams, legendParams, options) {
+            var that = this;
             this._basetileurl = this.baseUrl.replace('{dataset}', dataset);
             this._map = null;
             this._legendControl = null;
@@ -108,18 +109,35 @@
                            {s: this.options.subdomains[subindex]});
 
             // Request layer information from server
-            var ajaxOptions = {
+            this.ajaxOptions = {
               url: this._fcootileurl,
+              timeout: 30000,
+              tryCount: 0,
+              retryLimit: 2,
               data: {
                       SERVICE: 'WMS',
                       REQUEST: 'GetMetadata',
                       VERSION: this.wmsParams.version,
                       ITEMS: 'epoch,last_modified,long_name,units,bounds,time,levels',
                       LAYERS: this.wmsParams.layers.split(':')[0].split(',')[0]
-                    },
+              },
               context: this,
-              error: this._error_metadata,
-              success: this._got_metadata,
+              error: function(jqXHR, textStatus, err) {
+                 if (! that.options.hasOwnProperty('ajaxProxy')) {
+                     // Try events that time out again if not handled by ajaxProxy
+                     if (textStatus == 'timeout') {
+                         this.ajaxOptions.tryCount++;
+                         if (this.ajaxOptions.tryCount <= this.ajaxOptions.retryLimit) {
+                             $.ajax(this.ajaxOptions);
+                             return;
+                         }
+                     }
+                 }
+                 this._error_metadata(jqXHR, textStatus, err);
+              },
+              success: function(json) {
+                  this._got_metadata(json);
+              },
               beforeSend: function(jqXHR, settings) {
                   jqXHR.url = settings.url;
               },
@@ -131,9 +149,9 @@
             // ajax call to the provided function. Otherwise we use a
             // jQuery ajax call
             if (this.options.hasOwnProperty('ajaxProxy')) {
-                this.options.ajaxProxy.deferredAjax(ajaxOptions);
+                this.options.ajaxProxy.deferredAjax(this.ajaxOptions);
             } else {
-                $.ajax(ajaxOptions);
+                $.ajax(this.ajaxOptions);
             }
         },
 
@@ -393,8 +411,9 @@
             return url;
         },
 
-        _error_metadata: function(jqXHR/*, textStatus, err*/) {
-            var msg = 'Failed getting web map metadata from ' + jqXHR.url;
+        _error_metadata: function(jqXHR, textStatus/*, err*/) {
+            var msg = 'Failed getting web map metadata from ' + jqXHR.url +
+                      ' due to ' + textStatus;
             this.options.onMetadataError(new MetadataError(msg));
         },
 
@@ -406,7 +425,12 @@
                 if ('last_modified' in json) {
                     this._last_modified = moment(json.last_modified);
                 }
-                var variable = json[this.wmsParams.layers.split(':')[0].split(',')[0]];
+                var varname = this.wmsParams.layers.split(':')[0].split(',')[0];
+                if (! (varname in json)) {
+                    throw new MetadataError('Cannot find ' + varname + ' in ' + json);
+                }
+                var variable = json[varname];
+                
                 this._long_name = variable.long_name;
                 this._units = variable.units;
                 if ('levels' in variable) {
@@ -630,48 +654,67 @@
             for (var key in reqDict) {
                 if (reqDict.hasOwnProperty(key)) {
                     merDict[key] = {};
-                    if (reqDict[key].length == 1) {
-                        // When we only have one request we simply perform that request
-                        merDict[key] = reqDict[key][0];
-                    } else {
-                        // When we have multiple requests we merge them, make a single
-                        // request and call all appropriate callbacks with the proper
-                        // context
-                        var reqs = reqDict[key];
-                        var reqsLength = reqs.length;
-                        merDict[key].url = reqs[0].url;
-                        merDict[key].beforeSend = reqs[0].beforeSend;
-                        merDict[key].cache = reqs[0].cache;
-                        merDict[key].dataType = reqs[0].dataType;
-                        merDict[key].async = reqs[0].async;
-                        merDict[key].data = reqs[0].data;
-                        merDict[key].context = [];
-                        var layers = [];
-                        // TODO: Check data contents identical
-                        for (i = 0; i < reqsLength; i++) {
-                            merDict[key].context.push({
-                                context: reqs[i].context,
-                                success: reqs[i].success,
-                                error: reqs[i].error
-                            });
-                            if (layers.indexOf(reqs[i].data.LAYERS) == -1) {
-                                layers.push(reqs[i].data.LAYERS);
+                    // When we have multiple requests we merge them, make a single
+                    // request and call all appropriate callbacks with the proper
+                    // context
+                    var reqs = reqDict[key];
+                    var reqsLength = reqs.length;
+                    merDict[key].tryCount = reqs[0].tryCount;
+                    merDict[key].retryLimit = reqs[0].retryLimit;
+                    merDict[key].url = reqs[0].url;
+                    merDict[key].timeout = reqs[0].timeout;
+                    merDict[key].beforeSend = reqs[0].beforeSend;
+                    merDict[key].cache = reqs[0].cache;
+                    merDict[key].dataType = reqs[0].dataType;
+                    merDict[key].async = reqs[0].async;
+                    merDict[key].data = reqs[0].data;
+                    merDict[key].context = [];
+                    var layers = [];
+                    // TODO: Check data contents identical
+                    for (i = 0; i < reqsLength; i++) {
+                        merDict[key].context.push({
+                            key: key,
+                            context: reqs[i].context,
+                            success: reqs[i].success,
+                            error: reqs[i].error
+                        });
+                        if (layers.indexOf(reqs[i].data.LAYERS) == -1) {
+                            layers.push(reqs[i].data.LAYERS);
+                        }
+                    }
+                    merDict[key].data.LAYERS = layers.join();
+                    // FIXME: These functions should be moved out of the loop.
+                    // Until then we tell jshint to be quiet
+                    /* jshint loopfunc:true */
+                    merDict[key].success = function (json, textStatus, jqXHR) {
+                        var thisLength = this.length;
+                        for (var i = 0; i < thisLength; i++) {
+                            this[i].success.call(this[i].context, json, textStatus, jqXHR);
+                        }
+                    };
+                    merDict[key].error = function (jqXHR, textStatus, err) {
+                        var thisLength = this.length;
+                        if (textStatus == 'timeout') {
+                            // Retry request if any of the child requests specify tryCount and retryLimit
+                            for (var i = 0; i < thisLength; i++) {
+                                if (this[i].context.ajaxOptions.tryCount !== undefined && this[i].context.ajaxOptions.retryLimit !== undefined) {
+                                    this[i].context.ajaxOptions.tryCount++;
+                                    if (this[i].context.ajaxOptions.tryCount <= this[i].context.ajaxOptions.retryLimit) {
+                                        // Try again
+                                        //console.log('RETRYING', this[i].key, this[i].context.ajaxOptions.tryCount);
+                                        $.ajax(merDict[this[i].key]);
+                                        return;
+                                    }
+                                }
+                                break;
                             }
                         }
-                        merDict[key].data.LAYERS = layers.join();
-                        merDict[key].success = function (json, textStatus, jqXHR) {
-                            var thisLength = this.length;
-                            for (var i = 0; i < thisLength; i++) {
-                                this[i].success.call(this[i].context, json, textStatus, jqXHR);
-                            }
-                        };
-                        merDict[key].error = function (jqXHR, textStatus, err) {
-                            var thisLength = this.length;
-                            for (var i = 0; i < thisLength; i++) {
-                                this[i].error.call(this[i].context, jqXHR, textStatus, err);
-                            }
-                        };
-                    }
+                        // Otherwise call individual error handlers
+                        for (var j = 0; j < thisLength; j++) {
+                            this[j].error.call(this[j].context, jqXHR, textStatus, err);
+                        }
+                    };
+                    /* jshint loopfunc:false */
                 }
             }
             return merDict;

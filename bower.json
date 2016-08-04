@@ -7,7 +7,7 @@
   ],
   "description": "WMS tile layers from the pydap server",
   "main": [
-    "dist/leaflet-tilelayer-wms-pydap.min.js"
+    "dist/leaflet-tilelayer-wms-pydap.js"
   ],
   "repository": {
     "type": "git",

@@ -413,9 +413,19 @@
             return url;
         },
 
-        _error_metadata: function(jqXHR, textStatus/*, err*/) {
-            var msg = 'Failed getting web map metadata from ' + jqXHR.url +
-                      ' due to ' + textStatus;
+        _error_metadata: function(jqXHR, textStatus, err) {
+            var msg;
+            if (textStatus == 'timeout') {
+                msg = 'Web map metadata request timed out: ' + jqXHR.url;
+            } else if (textStatus == 'error') {
+                msg = 'Web map metadata request failed: ' + jqXHR.url +
+                ' with message=' + jqXHR.responseText;
+            } else {
+                msg = 'Web map metadata error: ' + jqXHR.url +
+                ' due exception type=' + textStatus +
+                ' with server message=' + jqXHR.responseText +
+                ' and client message=' + err.message;
+            }
             this.options.onMetadataError(new MetadataError(msg));
         },
 

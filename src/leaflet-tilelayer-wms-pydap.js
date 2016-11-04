@@ -413,18 +413,22 @@
             return url;
         },
 
-        _error_metadata: function(jqXHR, textStatus, err) {
-            var msg;
-            if (textStatus == 'timeout') {
-                msg = 'Web map metadata request timed out: ' + jqXHR.url;
-            } else if (textStatus == 'error') {
-                msg = 'Web map metadata request failed: ' + jqXHR.url +
-                ' with message=' + jqXHR.responseText;
+        _error_metadata: function(jqXHR, textStatus) { //, err) {
+            var msg = 'Web map metadata request for ' + jqXHR.url + ' failed. Reason: ';
+            if (jqXHR.status === 0) {
+                msg += 'No network connection.';
+            } else if (jqXHR.status == 404) {
+                msg += 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg += 'Internal Server Error [500].';
+            } else if (textStatus === 'parsererror') {
+                msg += 'Requested JSON parse failed.';
+            } else if (textStatus === 'timeout') {
+                msg += 'Time out error.';
+            } else if (textStatus === 'abort') {
+                msg += 'Ajax request aborted.';
             } else {
-                msg = 'Web map metadata error: ' + jqXHR.url +
-                ' due exception type=' + textStatus +
-                ' with server message=' + jqXHR.responseText +
-                ' and client message=' + err.message;
+                msg += 'Uncaught Error.\n' + jqXHR.responseText;
             }
             this.options.onMetadataError(new MetadataError(msg));
         },

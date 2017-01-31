@@ -64,7 +64,6 @@
             attribution: 'Weather from <a href="http://fcoo.dk/" alt="Defence Centre for Operational Oceanography">FCOO</a>',
             onMetadataError: function(err) {
                 window.noty({text: err.message, type: "error"});
-                throw err;
             }
         },
 
@@ -417,20 +416,25 @@
             var msg = 'Web map metadata request for ' + jqXHR.url + ' failed. Reason: ';
             if (jqXHR.status === 0) {
                 msg += 'No network connection.';
-            } else if (jqXHR.status == 404) {
-                msg += 'Requested page not found. [404]';
-            } else if (jqXHR.status == 500) {
-                msg += 'Internal Server Error [500].';
-            } else if (textStatus === 'parsererror') {
-                msg += 'Requested JSON parse failed.';
-            } else if (textStatus === 'timeout') {
-                msg += 'Time out error.';
-            } else if (textStatus === 'abort') {
-                msg += 'Ajax request aborted.';
+                this.options.onMetadataError(new MetadataError(msg));
             } else {
-                msg += 'Uncaught Error.\n' + jqXHR.responseText;
+                if (jqXHR.status == 404) {
+                    msg += 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg += 'Internal Server Error [500].';
+                } else if (textStatus === 'parsererror') {
+                    msg += 'Requested JSON parse failed.';
+                } else if (textStatus === 'timeout') {
+                    msg += 'Time out error.';
+                } else if (textStatus === 'abort') {
+                    msg += 'Ajax request aborted.';
+                } else {
+                    msg += 'Unknown error.\n' + jqXHR.responseText;
+                }
+                var err = new MetadataError(msg);
+                this.options.onMetadataError(err);
+                throw err;
             }
-            this.options.onMetadataError(new MetadataError(msg));
         },
 
         _got_metadata: function(json/*, textStatus, jqXHR*/) {
@@ -479,7 +483,9 @@
                 }
                 this._gotMetadata = true;
             } catch (err) {
-                this.options.onMetadataError(new MetadataError(err.message));
+                var metaerr = new MetadataError(err.message);
+                this.options.onMetadataError(metaerr);
+                throw metaerr;
             }
         },
 

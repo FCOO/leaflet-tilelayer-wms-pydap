@@ -503,17 +503,17 @@
             var that = this;
             this._map = map;
 
-            // Subscribe to datetime updates
-            map.on('datetimechange', this.setParamsListener, this);
-
-            if (that.options.foreground !== null) {
-                map.fire('baselayerforegroundadd', map);
-            }
-
             this._added = false;
             var gotMetadata = function () {
                 if (that._map !== null) {
+                    // Send signal to add foreground layer
+                    if (that.options.foreground !== null) {
+                        that._map.fire('baselayerforegroundadd', that._map);
+                    }
                     if (that._gotMetadata) {
+                        // Subscribe to datetime updates
+                        that._map.on('datetimechange', that.setParamsListener, that);
+
                         // Add legend when required info available
                         if (that.legendParams.show) {
                             that._legendControl = that._getLegendControl();

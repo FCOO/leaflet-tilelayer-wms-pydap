@@ -9,6 +9,7 @@
 	<meta name='copyright' content='FCOO'>
 	<meta name='owner' content='FCOO'>
 
+  <link  href="css/font-awesome.css" rel="stylesheet">	
   <link  href="bower_components.css" rel="stylesheet">	
 </head>
 
@@ -20,7 +21,12 @@
 	<script src="../src/wms-ajax-proxy.js"></script>
 
 	<script>
-				var map = L.map('map').setView([56.5, 12.0], 5);
+        var map = L.map('map').setView([56.5, 12.0], 5);
+        map.legendControl = new L.Control.Legend();
+        map.addControl( map.legendControl );
+        
+        
+
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</a>'
@@ -29,7 +35,7 @@
         var dataset = 'DMI/HIRLAM/MAPS_DMI_S03_v005C.nc';
         var options = {
             tileSize: 512,
-            attribution: 'Wind forecasts from <a href="http://dmi.dk" alt="Danish Meteorological Institute">DMI</a>',
+            source: 'dmi',
         }
         var optionsWindspeed = {
             layers: 'windspeed',
@@ -39,7 +45,8 @@
         };
         optionsWindspeed = $.extend(optionsWindspeed, options);
         var legendOptionsWindspeed = {
-            attribution: '<a href="dmi.dk">DMI</a>'
+            longName: {da:'Vindhastighed #2', en:'Wind speed #2'},
+            source: 'dmi'
         };
         var optionsWinddirection = {
             layers: 'UGRD:VGRD',
@@ -49,12 +56,16 @@
         }
         optionsWinddirection = $.extend(optionsWinddirection, options);
 
-        var windspeed = new L.TileLayer.WMS.Pydap(dataset, optionsWindspeed, 
-                    legendOptionsWindspeed);
-        var winddirection = new L.TileLayer.WMS.Pydap(dataset,
-                    optionsWinddirection);
+        var windspeed     = new L.TileLayer.WMS.Pydap(dataset, optionsWindspeed, legendOptionsWindspeed);
+        legendOptionsWindspeed.longName = {da:'Vindhastighed #2', en:'Wind speed #2'};
+
+        var windspeed2    = new L.TileLayer.WMS.Pydap(dataset, optionsWindspeed, legendOptionsWindspeed),
+            winddirection = new L.TileLayer.WMS.Pydap(dataset, optionsWinddirection);
         map.addLayer(windspeed);
+        map.addLayer(windspeed2);
         map.addLayer(winddirection);
+
+        map.on('click', function(){ map.removeLayer( windspeed2 ); });
 	</script>
 </body>
 </html>

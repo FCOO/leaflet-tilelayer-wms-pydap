@@ -7,7 +7,7 @@
 	https://github.com/FCOO
 
 ****************************************************************************/
-;(function ($, window, document, undefined) {
+(function ($, window, document, undefined) {
 	"use strict";
     /**
      * A JavaScript library for proxying metadata requests to WMS server.

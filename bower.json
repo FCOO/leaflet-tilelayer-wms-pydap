@@ -1,37 +1,37 @@
 {
-  "name": "leaflet-tilelayer-wms-pydap",
-  "version": "2.0.0",
-  "homepage": "https://github.com/FCOO/leaflet-tilelayer-wms-pydap",
-  "authors": [
-    "Jesper Baasch-Larsen <jla@fcoo.dk>"
-  ],
-  "description": "WMS tile layers from the pydap server",
-  "main": [
-    "dist/leaflet-tilelayer-wms-pydap.js"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/FCOO/leaflet-tilelayer-wms-pydap.git"
-  },
-  "dependencies": {
-    "noty": "latest",
-    "leaflet-tilelayer-counting": "https://github.com/fcoo/leaflet-tilelayer-counting.git",
-    "leaflet-control-vertical": "https://github.com/fcoo/leaflet-control-vertical.git",
-    "fcoo-leaflet-control-legend": "fcoo/fcoo-leaflet-control-legend#^1.0.0"
-  },
-  "devDependencies": {},
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "moduleType": [
-    "es6"
-  ],
-  "resolutions": {
-    "jquery": "~3.1.1"
-  }
+    "name": "leaflet-tilelayer-wms-pydap",
+    "version": "2.0.0",
+    "homepage": "https://github.com/FCOO/leaflet-tilelayer-wms-pydap",
+    "authors": [
+        "Jesper Baasch-Larsen <jla@fcoo.dk>"
+    ],
+    "description": "WMS tile layers from the pydap server",
+    "main": [
+        "dist/leaflet-tilelayer-wms-pydap.js"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/FCOO/leaflet-tilelayer-wms-pydap.git"
+    },
+    "dependencies": {
+        "noty": "latest",
+        "leaflet-tilelayer-counting": "https://github.com/fcoo/leaflet-tilelayer-counting.git",
+        "leaflet-control-vertical": "https://github.com/fcoo/leaflet-control-vertical.git",
+        "fcoo-leaflet-control-legend": "fcoo/fcoo-leaflet-control-legend#^1.0.0"
+    },
+    "devDependencies": {},
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "moduleType": [
+        "es6"
+    ],
+    "resolutions": {
+        "jquery": "~3.1.1"
+    }
 }

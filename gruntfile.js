@@ -1,7 +1,7 @@
 /***********************************************
-gruntfile.js for {%= name %}
+gruntfile.js for leaflet-tilelayer-wms-pydap
 
-https://github.com/FCOO/{%= name %}
+https://github.com/FCOO/leaflet-tilelayer-wms-pydap
 
 ***********************************************/
 

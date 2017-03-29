@@ -524,7 +524,8 @@
                                         updatesPerDay: _this.legendParams.updatesPerDay,
                                         longName     : _this.legendParams.longName,
                                         units        : _this.legendParams.units,
-                                        onRemove     : $.proxy(_this.removeFromLegend, _this)                                                        
+                                        //Removed because if don't work with menu in ifm-maps 
+                                        //onRemove     : $.proxy(_this.removeFromLegend, _this)                                                        
                                     };
 
                                     _this._legendId = _this._legendControl.addLegend( legendOptions );

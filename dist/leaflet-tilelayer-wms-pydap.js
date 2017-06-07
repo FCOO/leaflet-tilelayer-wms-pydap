@@ -10,7 +10,9 @@
 (function ($, L, window, document, undefined) {
 	"use strict";
 
-	var protocol = window.location.protocol == 'https:' ? 'https:' : 'http:';
+	var protocol = window.location.protocol == 'https:' ? 'https:' : 'http:',
+        firstLegend = true; 
+
 
     /**
      * A JavaScript library for using Web Map Service layers from pydap
@@ -513,7 +515,7 @@
                                     if (!_this.legendParams.longName)
                                         _this.legendParams.longName = _this._long_name;
 
-                                    if (!_this.legendParams.units)
+                                    if (_this.legendParams.units === null)
                                         _this.legendParams.units = _this._units;
 
                                     var legendOptions = {
@@ -524,10 +526,11 @@
                                         updatesPerDay: _this.legendParams.updatesPerDay,
                                         longName     : _this.legendParams.longName,
                                         units        : _this.legendParams.units,
+                                        defaultOpen  : firstLegend,
                                         //Removed because if don't work with menu in ifm-maps 
                                         //onRemove     : $.proxy(_this.removeFromLegend, _this)                                                        
                                     };
-
+                                    firstLegend = false; 
                                     _this._legendId = _this._legendControl.addLegend( legendOptions );
                                 }
                             }

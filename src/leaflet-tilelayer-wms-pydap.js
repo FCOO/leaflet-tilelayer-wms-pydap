@@ -515,7 +515,7 @@
                                     if (!_this.legendParams.longName)
                                         _this.legendParams.longName = _this._long_name;
 
-                                    if (_this.legendParams.units === null)
+                                    if (_this.legendParams.units == undefined)
                                         _this.legendParams.units = _this._units;
 
                                     var legendOptions = {

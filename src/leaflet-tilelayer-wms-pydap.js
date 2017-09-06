@@ -10,7 +10,7 @@
 (function ($, L, window, document, undefined) {
 	"use strict";
 
-	var protocol = window.location.protocol == 'https:' ? 'https:' : 'http:',
+	var protocol = 'https:',
         firstLegend = true; 
 
 

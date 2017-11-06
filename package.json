@@ -12,5 +12,6 @@
     "grunt": "^1.0.0",
     "grunt-fcoo-grunt-plugin": "^2.0.0"
   },
+  "main": "dist/leaflet-tilelayer-wms-pydap.js",
   "license": "MIT"
 }

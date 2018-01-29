@@ -1,0 +1,56 @@
+{
+    "fcoo": {
+        "name": { "da": "Forsvarets Center for Operativ Oceanografi", "en": "Defence Centre for Operational Oceanography" },
+        "link": { "da": "//fcoo.dk", "en": "//fcoo.dk?lang=en" }
+    },
+
+    "dmi": {
+        "name": { "da": "Danmarks Meteorologiske Institut", "en": "Danish Meteorological Institute" },
+        "link": { "da": "http://dmi.dk",  "en": "http://dmi.dk/en" }
+    },
+
+    "ecmwf": {
+        "name": { "en": "European Centre for Medium-Range Weather Forecasts" },
+        "link": { "en": "http://www.ecmwf.int" }
+    },
+
+    "noaa": {
+        "name": { "en": "National Oceanic and Atmospheric Administration" },
+        "link": { "en": "http://noaa.gov" }
+    },
+
+    "fnmoc": {
+        "name": {"en": "The Fleet Numerical Meteorology and Oceanography Center" },
+        "link": {"en": "http://www.usno.navy.mil/FNMOC" }
+    },
+
+    "navo": {
+        "name": { "en": "The Naval Oceanographic Office" },
+        "link": { "en": "http://www.usno.navy.mil/NAVO" }
+    },
+
+    "bsh": {
+        "name": { "en": "Federal Maritime and Hydrographic Agency", "de": "Bundesamt für Seeschifffahrt und Hydrographie" },
+        "link": { "en": "http://www.bsh.de/en", "de": "http://www.bsh.de" }
+    },
+
+    "smhi": {
+        "name": { "en": "Swedish Meteorological and Hydrological Institute", "sv": "Sveriges meteorologiska och hydrologiska institut" },
+        "link": { "en": "//www.smhi.se/en", "sv": "//www.smhi.se" }
+    },
+
+    "getm": {
+        "name": { "en": "General Estuarine Transport Model" }
+    },
+
+
+    "wam": {
+
+    }
+
+
+
+
+
+
+}

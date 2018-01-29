@@ -1,0 +1,680 @@
+{
+    "units": [
+        {
+            "WMO_unit": "m/s",
+            "CF_unit" : "m s-1",
+            "en"      : "m/s"
+        },
+
+        {
+            "WMO_unit": "kg/m2",
+            "CF_unit" : "kg m-2",
+            "en"      : "kg/m<sup>2</sup>"
+        },
+
+        {
+            "WMO_unit": "%",
+            "CF_unit" : "1",
+            "en"      : "%"
+        },
+
+        {
+            "WMO_unit": "proportion",
+            "CF_unit" : "1",
+            "en"      : "%"
+        },
+
+        {
+            "WMO_unit": "Pa",
+            "CF_unit" : "Pa",
+            "en"      : "Pa"
+        },
+
+        {
+            "WMO_unit": "m",
+            "CF_unit" : "m",
+            "en"      : "m"
+        },
+
+        {
+            "WMO_unit": "deg true",
+            "CF_unit" : "degree",
+            "en"      : "&deg;"
+        },
+
+        {
+            "WMO_unit": "kg/m2/s",
+            "CF_unit" : "kg m-2 s-1",
+            "en"      : "kg/m<sup>2</sup>/s"
+        },
+
+        {
+            "WMO_unit": "kg/kg",
+            "CF_unit" : "1e-3",
+            "en"      : "psu"
+        },
+
+        {
+            "WMO_unit": "kg/m3",
+            "CF_unit" : "kg m-3",
+            "en"      : "kg/m<sup>3</sup>"
+        },
+
+        {
+            "WMO_unit": "K",
+            "CF_unit" : "K",
+            "en"      : "K"
+        },
+
+
+        {
+            "WMO_unit": "nm/h",
+            "CF_unit" : "nm h-1",
+            "da"      : "knob",
+            "en"      : "knots"
+        },
+
+        {
+            "WMO_unit": "km/h",
+            "CF_unit" : "km h-1",
+            "da"      : "km/t",
+            "en"      : "km/h"
+        },
+
+        {
+            "WMO_unit": "degC",
+            "CF_unit" : "degC",
+            "en"      : "&deg;C"
+        }
+
+
+    ],
+
+    "parameters": [
+
+        { 
+            "WMO_id"  : "031",
+            "group"   : "WIND",
+            "WMO_name": "Wind direction (from which blowing)",
+            "WMO_unit": "deg true",
+            "WMO_abbr": "WDIR",
+            "CF_SN"   : "wind_from_direction",
+            "da"      : "Vindretning",
+            "en"      : "Wind direction"
+        },
+
+        {
+            "WMO_id"  : "",
+            "group"   : "WIND",
+            "WMO_name": "",
+            "WMO_unit": "deg true",
+            "WMO_abbr": "",
+            "CF_SN"   : "wind_to_direction",
+            "da"      : "",
+            "en"      : ""
+        },
+
+        {
+            "WMO_id"  : "032",
+            "group"   : "WIND",
+            "WMO_name": "Wind speed",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "WIND",
+            "CF_SN"   : "wind_speed",
+            "da"      : "",
+            "en"      : ""
+        },
+
+        {
+            "WMO_id"  : "033",
+            "group"   : "WIND",
+            "WMO_name": "u-component of wind",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "UGRD",
+            "CF_SN"   : "eastward_wind",
+            "da"      : "",
+            "en"      : ""
+        },
+
+        {
+            "WMO_id"  : "034",
+            "group"   : "WIND",
+            "WMO_name": "v-component of wind",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "VGRD",
+            "CF_SN"   : "northward_wind",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "180",
+            "group"   : "WIND",
+            "WMO_name": "Surface wind gust",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "GUST",
+            "CF_SN"   : "wind_speed_of_gust",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+            
+            
+        {
+            "WMO_id"  : "059",  
+            "group"   : "PRECITATION",
+            "WMO_name": "Precipitation rate",
+            "WMO_unit": "kg/m2/s",
+            "WMO_abbr": "PRATE",
+            "CF_SN"   : "precipitation_flux",
+            "note"    : "= convective_precipitation_flux + stratiform_precipitation_flux",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "group"   : "PRECITATION",
+            "CF_SN"   : "convective_precipitation_flux"
+        },
+            
+        {
+            "group"   : "PRECITATION",
+            "CF_SN"   : "stratiform_precipitation_flux"
+        },
+            
+        {
+            "WMO_id"  : "061",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Total precipitation",
+            "WMO_unit": "kg/m2",
+            "WMO_abbr": "APCP",
+            "CF_SN"   : "precipitation_amount",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "062",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Large scale precipitation (non-conv.)",
+            "WMO_unit": "kg/m2",
+            "WMO_abbr": "NCPCP",
+            "CF_SN"   : "stratiform_precipitation_amount",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "063",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Convective precipitation",
+            "WMO_unit": "kg/m2",
+            "WMO_abbr": "ACPCP",
+            "CF_SN"   : "convective_precipitation_amount",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "161",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Frozen precipitation (e.g. snowfall)",
+            "WMO_unit": "kg/m2",
+            "WMO_unit": "ASNOW",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "162",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Liquid precipitation (rainfall)",
+            "WMO_unit": "kg/m2",
+            "WMO_abbr": "ARAIN",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "194",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Percent of frozen precipitation",
+            "WMO_unit": "%",
+            "WMO_abbr": "CPOFP",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "193",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Probability of precipitation",
+            "WMO_unit": "%",
+            "WMO_abbr": "POP",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "060",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Thunderstorm probability",
+            "WMO_unit": "%",
+            "WMO_abbr": "TSTM",
+            "CF_SN"   : "thunderstorm_probability",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "195",
+            "group"   : "PRECIPITATION",
+            "WMO_name": "Probability of freezing precipitation",
+            "WMO_unit": "%",
+            "WMO_abbr": "CPOZP",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+            
+            
+        {
+            "WMO_id"  : "001",
+            "group"   : "METEO",
+            "WMO_name": "Pressure",
+            "WMO_unit": "Pa",
+            "WMO_abbr": "PRES",
+            "CF_SN"   : "air_pressure",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "002",
+            "group"   : "METEO",
+            "WMO_name": "Pressure reduced to MSL",
+            "WMO_unit": "Pa",
+            "WMO_abbr": "PRMSL",
+            "CF_SN"   : "air_pressure_at_sea_level",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "011",
+            "group"   : "METEO",
+            "WMO_name": "Temperature",
+            "WMO_unit": "K",
+            "WMO_abbr": "TMP",
+            "CF_SN"   : "air_temperature",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "020",
+            "group"   : "METEO",
+            "WMO_name": "Visibility",
+            "WMO_unit": "m",
+            "WMO_abbr": "VIS",
+            "CF_SN"   : "visibility_in_air",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "",
+            "group"   : "METEO",
+            "WMO_name": "",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "",
+            "CF_SN"   : "speed_of_sound_in_air",
+            "da"      : "Lydshasighed (luft)",
+            "en"      : "Speed of Sound (air)"
+        },
+            
+            
+            
+        {
+            "WMO_id"  : "071",
+            "group"   : "CLOUD",
+            "WMO_name": "Total cloud cover",
+            "WMO_unit": "%",
+            "WMO_abbr": "TCDC",
+            "CF_SN"   : "cloud_area_fraction",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "072",
+            "group"   : "CLOUD",
+            "WMO_name": "Convective cloud cover",
+            "WMO_unit": "%",
+            "WMO_abbr": "CDCON",
+            "CF_SN"   : "convective_cloud_area_fraction",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "073",
+            "group"   : "CLOUD",
+            "WMO_name": "Low cloud cover",
+            "WMO_unit": "%",
+            "WMO_abbr": "LCDC",
+            "CF_SN"   : "low_type_cloud_area_fraction",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "074",
+            "group"   : "CLOUD",
+            "WMO_name": "Medium cloud cover",
+            "WMO_unit": "%",
+            "WMO_abbr": "MCDC",
+            "CF_SN"   : "medium_type_cloud_area_fraction",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "075",
+            "group"   : "CLOUD",
+            "WMO_name": "High cloud cover",
+            "WMO_unit": "%",
+            "WMO_abbr": "HCDC",
+            "CF_SN"   : "high_type_cloud_area_fraction",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+            
+            
+        {
+            "WMO_id"  : "082",
+            "group"   : "SEALEVEL",
+            "WMO_name": "Deviation of sea level from mean",
+            "WMO_unit": "m",
+            "WMO_abbr": "DSLM",
+            "CF_SN"   : "sea_surface_height_above_sea_level",
+            "da"      : "Vandstand",
+            "en"      : "Sea level"
+        },
+            
+            
+            
+        {
+            "WMO_id"  : "091",
+            "group"   : "ICE",
+            "WMO_name": "Ice cover (ice=1, no ice=0)",
+            "WMO_unit": "proportion",
+            "WMO_abbr": "ICEC",
+            "CF_SN"   : "sea_ice_area_fraction",
+            "da"      : "Haviskoncentration",
+            "en"      : "Sea ice concentration"
+        },
+            
+        {
+            "WMO_id"  : "092",
+            "group"   : "ICE",
+            "WMO_name": "Ice thickness",
+            "WMO_unit": "m",
+            "WMO_abbr": "ICETK",
+            "CF_SN"   : "sea_ice_thickness",
+            "da"      : "Havistykkelse",
+            "en"      : "Sea ice thickness"
+        },
+            
+        {
+            "WMO_id"  : "093",
+            "group"   : "ICE",
+            "WMO_name": "Direction of ice drift",
+            "WMO_unit": "deg true",
+            "WMO_abbr": "DICED",
+            "CF_SN"   : "direction_of_sea_ice_velocity",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "094",
+            "group"   : "ICE",
+            "WMO_name": "Speed of ice drift",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "SICED",
+            "CF_SN"   : "sea_ice_speed",
+            "da"      : "Havisdrifthastighed",
+            "en"      : "Sea ice drift speed"
+        },
+            
+        {
+            "WMO_id"  : "097",
+            "group"   : "ICE",
+            "WMO_name": "Ice growth rate",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "ICEG",
+            "CF_SN"   : "tendency_of_sea_ice_thickness_due_to_thermodynamics",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "098",
+            "group"   : "ICE",
+            "WMO_name": "Ice divergence",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "ICED",
+            "CF_SN"   : "divergence_of_sea_ice_velocity",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+            
+        {
+            "WMO_id"  : "",
+            "group"   : "HYDRO",
+            "WMO_name": "",
+            "WMO_unit": "",
+            "WMO_abbr": "",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "088",
+            "group"   : "HYDRO",
+            "WMO_name": "Salinity",
+            "WMO_unit": "kg/kg",
+            "WMO_abbr": "SALTY",
+            "CF_SN"   : "sea_water_salinity",
+            "da"      : "Salinitet",
+            "en"      : "Salinity"
+        },
+            
+        {
+            "WMO_id"  : "",
+            "group"   : "HYDRO",
+            "WMO_name": "",
+            "WMO_unit": "",
+            "WMO_abbr": "",
+            "CF_SN"   : "sea_surface_salinity",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "089",
+            "group"   : "HYDRO",
+            "WMO_name": "Density",
+            "WMO_unit": "kg/m3",
+            "WMO_abbr": "DEN",
+            "CF_SN"   : "sea_water_density",
+            "da"      : "Massefylde (hav)",
+            "en"      : "Density (sea)"
+        },
+            
+        {
+            "WMO_id"  : "080",
+            "group"   : "HYDRO",
+            "WMO_name": "Water Temperature",
+            "WMO_unit": "K",
+            "WMO_abbr": "WTMP",
+            "CF_SN"   : "sea_water_temperature",
+            "da"      : "Temperatur (hav)",
+            "en"      : "Temperature (sea)"
+        },
+            
+        {
+            "WMO_id"  : "",
+            "group"   : "HYDRO",
+            "WMO_name": "",
+            "WMO_unit": "",
+            "WMO_abbr": "",
+            "CF_SN"   : "speed_of_sound_in_sea_water",
+            "da"      : "Lydhastighed (hav)",
+            "en"      : "Speed of sound (sea)"
+        },
+            
+            
+        {
+            "WMO_id"  : "047",
+            "group"   : "CURRENT",
+            "WMO_name": "Direction of current",
+            "WMO_unit": "Degree true",
+            "WMO_abbr": "DIRC",
+            "CF_SN"   : "direction_of_sea_water_velocity",
+            "da"      : "Strømretning",
+            "en"      : "Current direction"
+        },
+            
+        {
+            "WMO_id"  : "048",
+            "group"   : "CURRENT",
+            "WMO_name": "Speed of current",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "SPC",
+            "CF_SN"   : "sea_water_speed",
+            "da"      : "Strømhastighed",
+            "en"      : "Current speed"
+        },
+            
+        {
+            "WMO_id"  : "049",
+            "group"   : "CURRENT",
+            "WMO_name": "u-component of current",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "UOGRD",
+            "CF_SN"   : "eastward_sea_water_velocity",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "050",
+            "group"   : "CURRENT",
+            "WMO_name": "v-component of current",
+            "WMO_unit": "m/s",
+            "WMO_abbr": "VOGRD",
+            "CF_SN"   : "northward_sea_water_velocity",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "",
+            "group"   : "WAVE",
+            "WMO_name": "",
+            "WMO_unit": "",
+            "WMO_abbr": "",
+            "CF_SN"   : "",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+            
+        {
+            "WMO_id"  : "100",
+            "group"   : "WAVE",
+            "WMO_name": "Significant height of combined wind waves and swell",
+            "WMO_unit": "m",
+            "WMO_abbr": "HTSGW",
+            "CF_SN"   : "sea_surface_wave_significant_height",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "101",
+            "group"   : "WAVE",
+            "WMO_name": "Direction of wind waves",
+            "WMO_unit": "Degree true",
+            "WMO_abbr": "WVDIR",
+            "CF_SN"   : "sea_surface_wind_wave_to_direction",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "102",
+            "group"   : "WAVE",
+            "WMO_name": "Significant height of wind waves",
+            "WMO_unit": "m",
+            "WMO_abbr": "WVHGT",
+            "CF_SN"   : "sea_surface_wind_wave_significant_height",
+            "da"      : "",
+            "en"      : ""
+        },
+            
+        {
+            "WMO_id"  : "103",
+            "group"   : "WAVE",
+            "WMO_name": "Mean period of wind waves",
+            "WMO_unit": "s",
+            "WMO_abbr": "WVPER",
+            "CF_SN"   : "sea_surface_wind_wave_period",
+            "da"      : "",
+            "en"      : ""
+            },
+            
+        {
+            "WMO_id"  : "104",
+            "group"   : "WAVE",
+            "WMO_name": "Direction of swell waves",
+            "WMO_unit": "Degree true",
+            "WMO_abbr": "SWDIR",
+            "CF_SN"   : "sea_surface_swell_wave_to_direction",
+            "da"      : "",
+            "en"      : ""
+            },
+            
+        {
+            "WMO_id"  : "105",
+            "group"   : "WAVE",
+            "WMO_name": "Significant height of swell waves",
+            "WMO_unit": "m",
+            "WMO_abbr": "SWELL",
+            "CF_SN"   : "sea_surface_swell_wave_significant_height",
+            "da"      : "",
+            "en"      : ""
+            },
+            
+        {
+            "WMO_id"  : "106",
+            "group"   : "WAVE",
+            "WMO_name": "Mean period of swell waves",
+            "WMO_unit": "s",
+            "WMO_abbr": "SWPER",
+            "CF_SN"   : "sea_surface_swell_wave_period",
+            "da"      : "",
+            "en"      : ""
+        }
+    ]
+}

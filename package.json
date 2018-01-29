@@ -1,6 +1,6 @@
 {
   "name": "leaflet-tilelayer-wms-pydap",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "homepage": "https://github.com/FCOO/leaflet-tilelayer-wms-pydap",
   "author": "Jesper Baasch-Larsen jla@fcoo.dk",
   "description": "package.json is only use for building the package. see bower.json for more info",
@@ -10,8 +10,7 @@
   },
   "devDependencies": {
     "grunt": "^1.0.0",
-    "grunt-fcoo-grunt-plugin": "^2.0.0"
+    "grunt-fcoo-grunt-plugin": "^3.2.0"
   },
-  "main": "dist/leaflet-tilelayer-wms-pydap.js",
   "license": "MIT"
 }

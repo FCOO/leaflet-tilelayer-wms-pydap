@@ -30,15 +30,15 @@
 
     /* Class representing a WMS tilelayer from Pydap */
     L.TileLayer.WMS.Pydap = L.TileLayer.WMS.extend({
-        baseUrl: protocol + "//{s}.fcoo.dk/webmap/{dataset}.wms",
+        baseUrl: protocol + "//{s}.fcoo.dk/webmap/v2/data/{dataset}.wms",
         defaultWmsParams: {
             service: 'WMS',
             request: 'GetMap',
-            version: '1.1.1',
+            version: '1.3.0',
             layers: '',
             styles: '',
             format: 'image/png',
-            transparent: true,
+            transparent: 'TRUE',
         },
         defaultLegendParams: {
             request: 'GetColorbar',
